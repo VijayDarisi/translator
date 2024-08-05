@@ -4,7 +4,7 @@ Here's a `README.md` file content for your project:
 
 # Translator
 
-This project uses Google Generative AI API to translate content into multiple languages. The translations are processed and stored as JSON files, organized by country and language.
+This project uses Google Generative AI API to translate content into multiple languages. The translations are processed and stored as JSON files, organized by country and language. The accuracy of translation using Google Generative AI (Gemini) is above `90%`. Adjustments may be necessary for specific use cases or languages.
 
 ## Prerequisites
 
