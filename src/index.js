@@ -1,6 +1,8 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs");
 require("dotenv").config();
+const XLSX = require("xlsx");
+
 
 const {
   extractJsonContent,
@@ -9,6 +11,7 @@ const {
   createOrUpdateFile,
   createPrompt,
   createChatSession,
+  createRowsAndColumns,
 } = require("./utils");
 const { generationConfig, countryLanguageMapping, paths } = require("../config");
 
@@ -74,6 +77,33 @@ async function run() {
 
       createOrUpdateFile(fs, outputFilePath, outputJsonString);
     }
+  }
+
+  // Creating Excel sheet
+  if (paths.isExcelSheetNeeded) {
+    // Prepare data for the sheet
+    let data = [];
+    let keys = Object.keys(translations["en"]);
+    let sNo = 1;
+
+    createRowsAndColumns(data, keys, sNo, translations, countryLanguageMapping);
+
+    // Convert data to worksheet
+    let worksheet = XLSX.utils.aoa_to_sheet(data);
+
+    // Create a new workbook
+    let workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Translations");
+
+    const outputExcel =
+      paths.outputExcelPath == ""
+        ? "./translations.xlsx"
+        : paths.outputExcelPath;
+
+    // Write to Excel file
+    XLSX.writeFile(workbook, outputExcel);
+
+    console.log("Excel file created successfully.");
   }
 
   console.log(translations); // Print the object with all translations

@@ -20,11 +20,17 @@ const countryLanguageMapping = {
  * Else all the files are created in given output path
  *
  * @var outputJsonFileName - Used for creating or updating output json file name
+ *
+ * @var isExcelSheetNeeded - 'true' if you need excel sheet or default set to false
+ *
+ * @var outputExcelPath - Creates excel file of all translations, if  not provided creates excel file in the same folder.
  */
 const paths = {
   inputPath: "./input.json",
   outputPath: "",
   outputJsonFileName: "common",
+  isExcelSheetNeeded: false,
+  outputExcelPath: "",
 };
 
 module.exports = { generationConfig, countryLanguageMapping, paths };

@@ -111,6 +111,29 @@ const createChatSession = (
   return chatSession;
 };
 
+const createRowsAndColumns = (data, keys, sNo, translations,countryLanguageMapping) => {
+  // Create headers
+  let columns = ["S.No", "Key"];
+  for (let country in countryLanguageMapping) {
+    for (let lang of countryLanguageMapping[country]) {
+      columns.push(`${country}-${lang}`);
+    }
+  }
+  data.push(columns);
+
+  // Fill the data rows
+  for (let key of keys) {
+    let row = [sNo, key];
+    for (let country in countryLanguageMapping) {
+      for (let lang of countryLanguageMapping[country]) {
+        row.push(translations[lang][key] || "");
+      }
+    }
+    data.push(row);
+    sNo++;
+  }
+};
+
 module.exports = {
   extractJsonContent,
   getUniqueLanguageCodes,
@@ -118,4 +141,5 @@ module.exports = {
   createOrUpdateFile,
   createPrompt,
   createChatSession,
+  createRowsAndColumns,
 };
