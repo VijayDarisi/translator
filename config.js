@@ -12,6 +12,7 @@ const countryLanguageMapping = {
   cz: ["cs"],
 };
 
+// Translation of Json files configuration
 /**
  * @var inputPath - Input file path should be containing input JSON file for translation.
  * If input file path is not provided, defaultly sets to ./input.json
@@ -33,4 +34,45 @@ const paths = {
   outputExcelPath: "",
 };
 
-module.exports = { generationConfig, countryLanguageMapping, paths };
+
+// Converts Json files to Excel sheet configuration
+/**
+ * @var baseDirPath - Directory of translation folders path.
+ *
+ * @var jsonFileName - Json file name that need to be converted.
+ *
+ * @var outputExcelPath - Path where excel sheet to be created. default : at the same folder
+ *
+ * @var excelFileName - Name of the excel sheet name that need to be created, default : translations
+ *
+ */
+
+const convertToExcelPaths = {
+  baseDirPath: "", // compulsory
+  jsonFileName: "", // compulsory
+  outputExcelPath: "",
+  excelFileName: "",
+};
+
+// Converts Excel sheet to Json files configuration
+/**
+ * @var excelFilePath - Path of the excel sheet that need to be converted to Json files.
+ *
+ * @var outputDirPath - Path of the folder, where Json files to be created. default : creates locales folder in it.
+ *
+ * @var ouputJsonFileName - Name of the Json file that need to be created. default : common
+ *
+ */
+const convertToJsonPaths = {
+  excelFilePath: "", // Compulsory
+  outputDirPath: "",
+  ouputJsonFileName: "", //Compulsory
+};
+
+module.exports = {
+  generationConfig,
+  countryLanguageMapping,
+  paths,
+  convertToExcelPaths,
+  convertToJsonPaths,
+};

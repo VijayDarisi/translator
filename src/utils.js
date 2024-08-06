@@ -1,3 +1,6 @@
+const path = require("path");
+const fs = require("fs");
+
 const extractJsonContent = (text) => {
   const match = text.match(/\{(.*)\}/s);
   if (match) {
@@ -111,7 +114,13 @@ const createChatSession = (
   return chatSession;
 };
 
-const createRowsAndColumns = (data, keys, sNo, translations,countryLanguageMapping) => {
+const createRowsAndColumns = (
+  data,
+  keys,
+  sNo,
+  translations,
+  countryLanguageMapping
+) => {
   // Create headers
   let columns = ["S.No", "Key"];
   for (let country in countryLanguageMapping) {
@@ -134,6 +143,28 @@ const createRowsAndColumns = (data, keys, sNo, translations,countryLanguageMappi
   }
 };
 
+//
+const gatherTranslations = (jsonFileName, dirPath, translations = {}) => {
+  const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  entries.forEach((entry) => {
+    const fullPath = path.join(dirPath, entry.name);
+
+    if (entry.isDirectory()) {
+      gatherTranslations(jsonFileName, fullPath, translations);
+    } else if (entry.isFile() && entry.name === `${jsonFileName}.json`) {
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const parsedData = JSON.parse(fileContents);
+      const [country, lang] = path.basename(dirPath).split("-");
+
+      if (!translations[country]) translations[country] = {};
+      translations[country][lang] = parsedData;
+    }
+  });
+
+  return translations;
+};
+
 module.exports = {
   extractJsonContent,
   getUniqueLanguageCodes,
@@ -142,4 +173,5 @@ module.exports = {
   createPrompt,
   createChatSession,
   createRowsAndColumns,
+  gatherTranslations,
 };
