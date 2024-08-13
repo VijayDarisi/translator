@@ -3,3 +3,5 @@ node_modules
 package-lock.json
 locales
 translations.xlsx
+*.xlsx
+.DS_Store

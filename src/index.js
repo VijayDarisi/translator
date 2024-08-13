@@ -46,17 +46,24 @@ async function run() {
 
   console.log("Translating...");
 
-  for (const languageCode of languageCodesForTranslations) {
-    const prompt = createPrompt(languageCode, input);
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-    const result = await chatSession.sendMessage(prompt);
-    const inputText = result.response.text(); // Extract the text from the response
-    const content = extractJsonContent(inputText); // Extract JSON content
+for (const languageCode of languageCodesForTranslations) {
+  const prompt = createPrompt(languageCode, input);
 
-    if (content) {
-      translations[languageCode] = content;
-    }
+  const result = await chatSession.sendMessage(prompt);
+  const inputText = result.response.text(); // Extract the text from the response
+  const content = extractJsonContent(inputText); // Extract JSON content
+
+  if (content) {
+    translations[languageCode] = content;
   }
+
+  // Wait for 2 seconds before the next iteration
+  await delay(2000);
+}
 
   console.log("Translation Done.");
   console.log("Storing your translated jsons");
