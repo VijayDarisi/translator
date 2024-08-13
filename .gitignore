@@ -5,3 +5,5 @@ locales
 translations.xlsx
 *.xlsx
 .DS_Store
+common.json
+backend_output.json

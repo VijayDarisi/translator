@@ -69,10 +69,33 @@ const convertToJsonPaths = {
   ouputJsonFileName: "", //Compulsory
 };
 
+/**
+ * 
+ */
+const convertToLanguages = {
+  inputPath: "",
+  languages: [
+    "lt",
+    "ru",
+    "fr",
+    "sv",
+    "tr",
+    "es",
+    "sl",
+    "sk",
+    "sr",
+    "ro",
+    "pt",
+    "no",
+  ],
+  outputPath: "",
+};
+
 module.exports = {
   generationConfig,
   countryLanguageMapping,
   paths,
   convertToExcelPaths,
   convertToJsonPaths,
+  convertToLanguages,
 };

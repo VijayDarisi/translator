@@ -165,6 +165,18 @@ const gatherTranslations = (jsonFileName, dirPath, translations = {}) => {
   return translations;
 };
 
+function createFile(fs, filePath, jsonString) {
+  fs.writeFile(filePath, jsonString, "utf8", (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+    } else {
+      console.log(
+        "File has been created or updated with the new content in common.json"
+      );
+    }
+  });
+}
+
 module.exports = {
   extractJsonContent,
   getUniqueLanguageCodes,
@@ -174,4 +186,5 @@ module.exports = {
   createChatSession,
   createRowsAndColumns,
   gatherTranslations,
+  createFile,
 };
